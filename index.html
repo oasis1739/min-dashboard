@@ -140,7 +140,7 @@ table.wonga td.sum{background:#eff6ff;font-weight:700;color:var(--navy);}
 .modal-body .kpi-grid{margin-bottom:16px;}
 .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 
-/* 셋업 가이드 */
+/* 사용 안내 */
 .setup-intro{background:linear-gradient(135deg,#eff6ff 0%,#f0f9ff 100%);border-radius:12px;padding:18px;margin-bottom:22px;border-left:4px solid var(--blue);}
 .setup-intro h3{margin:0 0 8px;font-size:15px;color:var(--navy);}.setup-intro p{margin:0;font-size:13px;color:var(--s700);line-height:1.6;}
 .step{display:flex;gap:15px;margin-bottom:22px;padding:18px;background:var(--s50);border-radius:12px;border:1px solid var(--s200);}
@@ -216,7 +216,7 @@ table.wonga td.sum{background:#eff6ff;font-weight:700;color:var(--navy);}
     <div class="head-actions">
       <span class="syncchip" id="syncChip"><span class="syncdot" id="syncDot"></span><span id="syncTxt">시트 연결됨</span></span>
       <button class="pill" id="refreshBtn" type="button">🔄 새로고침</button>
-      <button class="pill" id="setupBtn" type="button">📖 셋업 가이드</button>
+      <button class="pill" id="setupBtn" type="button">📖 사용 안내</button>
       <select class="pill" id="yearSel"><option value="2025">2025년</option></select>
     </div>
   </div>
@@ -332,42 +332,27 @@ table.wonga td.sum{background:#eff6ff;font-weight:700;color:var(--navy);}
 
 </div>
 
-<!-- 셋업 가이드 모달 -->
+<!-- 사용 안내 모달 -->
 <div class="backdrop" id="setupModal">
   <div class="modal" style="max-width:900px;">
-    <div class="modal-head"><h2>📖 구글시트 연동 셋업 가이드</h2><button class="x" id="setup-x" type="button">×</button></div>
+    <div class="modal-head"><h2>📖 사용 안내</h2><button class="x" id="setup-x" type="button">×</button></div>
     <div class="modal-body">
       <div class="setup-intro">
-        <h3>지금 화면이 곧 친구(두식)가 볼 화면입니다</h3>
-        <p>현재는 <b>인라인 데이터 + 브라우저 저장</b>으로 작동. 구글시트 연동하면 시트 입력만으로 자동 갱신됩니다.</p>
+        <h3>복잡한 설정은 모두 끝나 있습니다 ✅</h3>
+        <p>구글시트에 <b>숫자만 입력</b>하면 이 화면이 자동으로 그려집니다. 반대로 이 화면의 "입력"에서 고쳐도 시트에 자동 저장됩니다(양방향).</p>
       </div>
       <div class="step"><div class="step-n">1</div><div class="step-c">
-        <h3>구글시트 열기</h3>
-        <p>"매출원본" 시트를 엽니다.</p>
-        <a href="https://docs.google.com/spreadsheets/d/17v414NkcIdQuMBU3WH4sC6xpUX8afS6x2eXlMfB2VZc/edit" target="_blank" class="sheet-link">매출원본 시트 열기 ↗</a>
+        <h3>기성청구 탭 — 매출 입력</h3>
+        <p>월별 <b>공사완료금액</b>과 <b>월기성지급액</b>을 적습니다. → 월별 매출·기성 그래프가 채워집니다.</p>
       </div></div>
       <div class="step"><div class="step-n">2</div><div class="step-c">
-        <h3>Apps Script 코드 붙여넣기</h3>
-        <ol><li><kbd>확장 프로그램</kbd> → <kbd>Apps Script</kbd></li><li>기존 코드 삭제 후 아래 코드 붙여넣기</li><li><kbd>Ctrl+S</kbd> 저장</li></ol>
-        <div class="code-box"><button class="copy-btn" id="copy-gs" type="button">📋 복사</button><pre id="gs-display">(로딩 중...)</pre></div>
+        <h3>급여 탭 — 직원 급여 입력</h3>
+        <p>한 줄에 "한 사람의 한 달치"로 <b>지급월 / 직원 / 지급액</b>을 적습니다(여러 명이면 줄 추가). → 월별·직원별 급여가 자동 계산됩니다.</p>
       </div></div>
       <div class="step"><div class="step-n">3</div><div class="step-c">
-        <h3>시트 탭 자동 생성</h3>
-        <ol><li>시트 새로고침(F5) → 상단 <b>[대시보드]</b> 메뉴</li><li><b>[탭 초기화]</b> 클릭 → 권한 승인</li></ol>
-        <div class="tab-spec"><div class="name">원가분석</div><div class="desc">계정과목 × 월별 (입력 메인)</div></div>
-        <div class="tab-spec"><div class="name">기성청구</div><div class="desc">공사완료금액 / 월기성지급액</div></div>
-        <div class="tab-spec"><div class="name">급여</div><div class="desc">지급월 / 직원 / 지급액</div></div>
-        <div class="tab-spec"><div class="name">TANGO_원본</div><div class="desc">TANGO 다운로드 paste (선택)</div></div>
-      </div></div>
-      <div class="step"><div class="step-n">4</div><div class="step-c">
-        <h3>웹앱 배포 → URL 복사</h3>
-        <ol><li><kbd>배포</kbd> → <kbd>새 배포</kbd> → 유형: <b>웹앱</b></li><li>실행: 나 / 액세스: 나만 → 배포</li><li>웹앱 URL 복사</li></ol>
-        <div class="code-box"><pre>https://script.google.com/macros/s/AKfycb..../exec</pre></div>
-      </div></div>
-      <div class="step"><div class="step-n">5</div><div class="step-c">
-        <h3>대시보드에 URL 연결</h3>
-        <ol><li>dashboard.html을 메모장으로 열기</li><li><kbd>Ctrl+F</kbd>로 <code>const API_URL = ""</code> 검색</li><li>따옴표 안에 URL 붙여넣기 → 저장</li></ol>
-        <div class="tip">💡 우하단에 "✓ 구글시트 데이터 로드됨" 뜨면 성공. 비어있으면 인라인+브라우저저장으로 작동.</div>
+        <h3>원가분석 탭 — 그 외 비용 입력</h3>
+        <p>계정과목(외주가공비·차량렌트·세무사·4대보험 등) 옆 <b>1~12월 칸</b>에 금액을 적습니다. → 비용 분석 그래프가 채워집니다.</p>
+        <div class="tip">💡 입력 후 최대 30초면 화면에 반영(즉시 보려면 우상단 🔄 새로고침). 회색 제목 줄은 지우지 마세요.</div>
       </div></div>
     </div>
   </div>
@@ -381,148 +366,7 @@ table.wonga td.sum{background:#eff6ff;font-weight:700;color:var(--navy);}
   </div>
 </div>
 
-<script type="text/plain" id="gs-source">/**
- * 이앤비(민두식) 원가분석 대시보드 - 구글시트 백엔드
- *
- * 시트 탭:
- *   - 원가분석 : 계정과목(A열) × 1~12월(B~M열). 입력 메인.
- *   - 기성청구 : 월(A) / 공사완료금액(B) / 월기성지급액(C)
- *   - 급여     : 지급월(A) / 직원(B) / 지급액(C)
- *
- * 배포: 확장프로그램>Apps Script>코드붙여넣기>저장
- *      > 시트 새로고침 > [대시보드>탭 초기화]
- *      > 배포>새 배포>웹앱>URL 복사 > dashboard.html의 API_URL에 입력
- */
-const YEAR = 2025;
-const KEYS = ['공사완료금액','월기성지급액','외주가공비','급여','HW외주팀급여','퇴직급여','일용노무비',
-  '법인개인카드','전도금','차량렌트','세무사','기타경비','국민건강','국민연금','고용보험','산재보험',
-  '영업외수익','영업외비용','전기손실'];
 
-function doGet(e){
-  try{
-    const ss=SpreadsheetApp.getActive();
-    const out={year:YEAR, company:'이앤비정보통신 (민두식)', subtitle:'엠제이 케이블 하도급 · 원가분석'};
-    const z=()=>[0,0,0,0,0,0,0,0,0,0,0,0];
-    KEYS.forEach(k=>out[k]=z());
-
-    // 원가분석 탭: A열 계정과목명 매칭 → B~M(1~12월)
-    const sW=ss.getSheetByName('원가분석');
-    if(sW && sW.getLastRow()>1){
-      const rng=sW.getRange(1,1,sW.getLastRow(),13).getValues();
-      rng.forEach(row=>{
-        const name=String(row[0]||'').replace(/[\s▷�B-]/g,'').trim();
-        const key=matchKey_(name);
-        if(key){for(let i=0;i<12;i++)out[key][i]=Number(row[i+1])||0;}
-      });
-    }
-
-    // 기성청구 탭 우선 (공사완료금액/월기성지급액 덮어쓰기)
-    const sG=ss.getSheetByName('기성청구');
-    if(sG && sG.getLastRow()>1){
-      const rng=sG.getRange(2,1,sG.getLastRow()-1,3).getValues();
-      rng.forEach(row=>{
-        const m=parseMonth_(row[0]); if(m<0||m>11)return;
-        out['공사완료금액'][m]=Number(row[1])||0;
-        out['월기성지급액'][m]=Number(row[2])||0;
-      });
-    }
-
-    // 급여 탭 → 월별 급여 + 직원별
-    const sS=ss.getSheetByName('급여');
-    const byEmp={};
-    if(sS && sS.getLastRow()>1){
-      const rng=sS.getRange(2,1,sS.getLastRow()-1,3).getValues();
-      const salMonthly=z();
-      rng.forEach(row=>{
-        const m=parseMonth_(row[0]); const emp=String(row[1]||'').trim(); const amt=Number(row[2])||0;
-        if(m<0||m>11||!emp||!amt)return;
-        salMonthly[m]+=amt;
-        if(!byEmp[emp])byEmp[emp]=z();
-        byEmp[emp][m]+=amt;
-      });
-      // 원가분석 탭에 급여가 없으면 급여탭 합계 사용
-      if(out['급여'].every(v=>v===0))out['급여']=salMonthly;
-    }
-    out.salary_by_emp=byEmp;
-    out.timestamp=new Date().toISOString();
-    return ContentService.createTextOutput(JSON.stringify(out)).setMimeType(ContentService.MimeType.JSON);
-  }catch(err){
-    return ContentService.createTextOutput(JSON.stringify({error:err.toString()})).setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-function matchKey_(n){
-  if(n.indexOf('공사완료')>=0)return '공사완료금액';
-  if(n.indexOf('월기성')>=0||n.indexOf('계산서')>=0)return '월기성지급액';
-  if(n.indexOf('외주가공')>=0||n.indexOf('하도급')>=0)return '외주가공비';
-  if(n.indexOf('HW외주팀급여')>=0||n.indexOf('외주팀급여')>=0)return 'HW외주팀급여';
-  if(n.indexOf('퇴직')>=0)return '퇴직급여';
-  if(n.indexOf('일용')>=0)return '일용노무비';
-  if(n==='급여'||n.indexOf('급여')===0)return '급여';
-  if(n.indexOf('법인')>=0||n.indexOf('카드')>=0)return '법인개인카드';
-  if(n.indexOf('전도금')>=0)return '전도금';
-  if(n.indexOf('차량렌트')>=0||n.indexOf('렌탈')>=0)return '차량렌트';
-  if(n.indexOf('세무')>=0)return '세무사';
-  if(n.indexOf('기타경비')>=0)return '기타경비';
-  if(n.indexOf('국민건강')>=0||n.indexOf('건강보험')>=0)return '국민건강';
-  if(n.indexOf('국민연금')>=0||n.indexOf('연금')>=0)return '국민연금';
-  if(n.indexOf('고용보험')>=0)return '고용보험';
-  if(n.indexOf('산재')>=0)return '산재보험';
-  if(n.indexOf('영업외수익')>=0)return '영업외수익';
-  if(n.indexOf('영업외비용')>=0)return '영업외비용';
-  if(n.indexOf('전기손실')>=0)return '전기손실';
-  return null;
-}
-function parseMonth_(v){
-  if(v==null)return -1;
-  if(v instanceof Date)return v.getMonth();
-  const s=String(v);
-  const m=s.match(/(\d{1,2})\s*월/);
-  if(m)return parseInt(m[1],10)-1;
-  const n=parseInt(s.replace(/[^0-9]/g,''),10);
-  if(!isNaN(n)&&n>=1&&n<=12)return n-1;
-  return -1;
-}
-
-function onOpen(){
-  SpreadsheetApp.getUi().createMenu('대시보드')
-    .addItem('탭 초기화 (헤더 생성)','initSheets')
-    .addItem('데이터 미리보기','previewData').addToUi();
-}
-function initSheets(){
-  const ss=SpreadsheetApp.getActive();
-  const MONTHS=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
-
-  // 원가분석 탭
-  let w=ss.getSheetByName('원가분석'); if(!w)w=ss.insertSheet('원가분석');
-  const accounts=['1. 매출 계정','  ▷ 공사완료금액(매출)','  ▷ 월기성지급액(계산서)','2. 외주가공비',
-    '3. 노무비','  ▷ 급여','  ▷ HW외주팀급여','  ▷ 퇴직급여','  ▷ 일용노무비',
-    '5. 경비','  ▷ 법인개인카드','  ▷ 전도금','  ▷ 차량렌트','  ▷ 세무사','  ▷ 기타경비',
-    '6. 고정비','  ▷ 국민건강','  ▷ 국민연금','  ▷ 고용보험','  ▷ 산재보험',
-    '7. 영업외수익','7. 영업외비용','9. 전기손실'];
-  w.getRange(1,1,1,13).setValues([['계정과목'].concat(MONTHS)]).setFontWeight('bold').setBackground('#1f3864').setFontColor('white');
-  accounts.forEach((a,i)=>w.getRange(i+2,1).setValue(a));
-  w.setColumnWidth(1,200); w.setFrozenRows(1); w.setFrozenColumns(1);
-
-  // 기성청구 탭
-  let g=ss.getSheetByName('기성청구'); if(!g)g=ss.insertSheet('기성청구');
-  g.getRange(1,1,1,3).setValues([['월','공사완료금액','월기성지급액']]).setFontWeight('bold').setBackground('#1f3864').setFontColor('white');
-  MONTHS.forEach((m,i)=>g.getRange(i+2,1).setValue(m));
-  g.setColumnWidth(2,140);g.setColumnWidth(3,140);g.setFrozenRows(1);
-
-  // 급여 탭
-  let s=ss.getSheetByName('급여'); if(!s)s=ss.insertSheet('급여');
-  s.getRange(1,1,1,3).setValues([['지급월','직원','지급액']]).setFontWeight('bold').setBackground('#1f3864').setFontColor('white');
-  s.setFrozenRows(1);
-
-  SpreadsheetApp.getUi().alert('탭 초기화 완료!\n원가분석/기성청구/급여 탭에 입력하세요.');
-}
-function previewData(){
-  const d=JSON.parse(doGet({}).getContent());
-  const html=HtmlService.createHtmlOutput('<pre style="font-size:11px;">'+JSON.stringify(d,null,2)+'</pre>').setWidth(600).setHeight(500);
-  SpreadsheetApp.getUi().showModalDialog(html,'데이터 미리보기');
-}
-</script>
 
 <script>
 (async function main(){
@@ -983,14 +827,8 @@ function previewData(){
   document.getElementById('setupModal').addEventListener('click',e=>{if(e.target.id==='setupModal')closeM('setupModal');});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeM('monthModal');closeM('setupModal');}});
 
-  /* 셋업 가이드 */
-  (function(){
-    const src=document.getElementById('gs-source'),disp=document.getElementById('gs-display');
-    const code=src?src.textContent.trim():'';if(disp)disp.textContent=code||'(코드 없음)';
-    document.getElementById('setupBtn').addEventListener('click',()=>{document.getElementById('setupModal').classList.add('active');document.body.style.overflow='hidden';});
-    const cb=document.getElementById('copy-gs');
-    cb.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(code);cb.textContent='✓ 복사 완료';cb.classList.add('copied');setTimeout(()=>{cb.textContent='📋 복사';cb.classList.remove('copied');},2000);}catch(e){const r=document.createRange();r.selectNodeContents(disp);const s=window.getSelection();s.removeAllRanges();s.addRange(r);cb.textContent='드래그→Ctrl+C';}});
-  })();
+  /* 사용 안내 */
+  document.getElementById('setupBtn').addEventListener('click',()=>{document.getElementById('setupModal').classList.add('active');document.body.style.overflow='hidden';});
 
   /* 초기 렌더 */
   renderAll();
